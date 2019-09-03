@@ -1,2 +1,2 @@
 # Work-Productivity
-The R script is developed for tracking work productivity
+The R scripts are developed for tracking work productivity
