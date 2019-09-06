@@ -1,4 +1,7 @@
-##For tracking how lazy I am
+##########For tracking how lazy I am###################################
+##The first two sections used for clocking in/out
+##The third plots the working hour trend
+##The last plots a calendar for productivity 
 
 setwd('~/Dropbox')
 rm(list = ls())
@@ -31,7 +34,7 @@ save(work_end,file="work_end.Rda")
 #=======================================================================
 
   
-#Summary
+#Trend Summary
 setwd('~/Dropbox')
 rm(list = ls())
 library("ggplot2")
@@ -60,3 +63,30 @@ ggplot(data=summary, aes(x = summary$date,y = summary$hour,colour = summary$mark
        theme(axis.text.x = element_text(angle = 45, hjust = 0.5, vjust = 0.5), legend.title=element_blank()) + 
        ggtitle("For Tracking How Lazy I Am")
 
+
+#============================================================================
+#RUN FROM HERE TO CHECK MY WORK CALENDAR
+
+
+#Monthly Summary
+setwd('~/Dropbox')
+rm(list = ls())
+library("lattice")
+library("grid")
+library("chron")
+library("lubridate")
+library("dplyr")
+source("https://raw.githubusercontent.com/iascchen/VisHealth/master/R/calendarHeat.R")
+
+load("work_start.Rda")
+load("work_end.Rda")
+work_start$date <- as.POSIXct(strptime(work_start$today_start, format = "%Y-%m-%d"))
+work_end$date <- as.POSIXct(strptime(work_end$today_end, format = "%Y-%m-%d"))
+calendar <- merge(work_start, work_end, by=c("date"))
+calendar$worktime <- difftime(calendar$today_end, calendar$today_start, units="hours")
+
+#Plot the calendar
+calendarHeat(dates = calendar$date,
+             values = calendar$worktime,
+             color = "g2r",
+             varname = "Work Time")
