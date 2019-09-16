@@ -1,4 +1,7 @@
 # Work-Productivity
-The R script is developed for tracking work productivity
+The R scripts are developed for tracking work productivity
 
-The third section gives a figure of the working hour trend and the fourth sections plots work productivity in a calendar map.
+Run "work_statr.R" and "work_end.R" to clock in/out. 
+
+"Visualized_summary.R" gives a trend summary for your working time and your working calendar. 
+
